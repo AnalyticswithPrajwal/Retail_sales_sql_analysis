@@ -1,7 +1,7 @@
 # Retail Sales SQL Analysis
 
 ## 📌 Overview
-This project demonstrates an end-to-end SQL data analysis workflow using a retail store sales dataset. It walks through the process of turning raw transaction data into business insights, focusing on data cleaning, exploratory analysis, and revenue optimization.
+This project demonstrates an end-to-end SQL data analysis workflow using a retail store sales dataset. It walks through the process of turning raw transaction data into business insights, focusing on data cleaning, exploratory analysis, and revenue analysis.
 
 The project highlights:
 * **Data cleaning and validation** to ensure structural integrity
@@ -49,9 +49,9 @@ retail-sales-sql-analysis/
 To establish a reliable source of truth, the raw data was preserved separately while a cleaned table was built using the following steps:
 * **Inspection:** Reviewing the raw dataset structure and categorical fields.
 * **Completeness:** Checking for missing values and recovering them where possible.
-* **Uniqueness:** Identifying and removing duplicate transactions.
+* **Uniqueness:** Checking for duplicate transaction IDs.
 * **Integrity Constraints:** Validating numerical ranges (e.g., negative prices/quantities) and invalid data.
-* **Optimization:** Applying appropriate data types and primary/foreign key constraints.
+* **Optimization:** Applying appropriate data types and primary key constraints.
 
 ---
 
