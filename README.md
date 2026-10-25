@@ -218,24 +218,23 @@ Keeping the raw table unchanged makes it possible to compare the original data w
 
 ## 🗂️ Database Schema
 
-The project uses a single transaction-level table containing customer, product, pricing, payment, location, date, and discount information.
+The project uses a single transaction-level table named `cleaned_retail_stores_sales` containing customer, product, pricing, payment, location, date, and discount information.
 
-```mermaid
-ER Diagram
-    RETAIL_STORE_SALES {
-        int Transaction_ID PK
-        string Customer_ID
-        string Category
-        string Item
-        decimal Price_per_unit
-        int Quantity
-        decimal Total_spent
-        string Payment_method
-        string Location
-        date Transaction_date
-        boolean Discount_applied
-    }
-```
+Each row represents a retail transaction.
+
+| Column Name | Description | Data Type |
+|---|---|---|
+| `Transaction_ID` | Unique transaction identifier, subject to validation | INT |
+| `Customer_ID` | Customer identifier | VARCHAR |
+| `Category` | Product category | VARCHAR |
+| `Item` | Product or item name | VARCHAR |
+| `Price_per_unit` | Price per unit | DECIMAL |
+| `Quantity` | Quantity purchased | INT |
+| `Total_spent` | Total recorded transaction spending | DECIMAL |
+| `Payment_method` | Payment method used | VARCHAR |
+| `Location` | Store or transaction location | VARCHAR |
+| `Transaction_date` | Transaction date | DATE or DATETIME |
+| `Discount_applied` | Discount status | BIT or VARCHAR |
 
 ### Schema Notes
 
