@@ -56,7 +56,7 @@ The dataset contains **12,575 retail transaction records** with information abou
 ## 📁 Project Structure
 
 ```text
-Retail_sql_analysis/
+Retail_sales_sql_analysis/
 ├── data/
 │   └── retail_store_sales.csv
 ├── images/
@@ -224,7 +224,7 @@ Each row represents a retail transaction.
 
 | Column Name | Description | Data Type |
 |---|---|---|
-| `Transaction_ID` | Unique transaction identifier, subject to validation | INT |
+| `Transaction_ID` | Unique transaction identifier, subject to validation | VARCHAR |
 | `Customer_ID` | Customer identifier | VARCHAR |
 | `Category` | Product category | VARCHAR |
 | `Item` | Product or item name | VARCHAR |
