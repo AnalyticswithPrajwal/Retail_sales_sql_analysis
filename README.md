@@ -40,8 +40,6 @@ The dataset contains **12,575 retail transaction records** with information abou
 | `Transaction_date` | Date of the transaction |
 | `Discount_applied` | Indicates discount status, where recorded |
 
-**Note:** The dataset is analyzed at the transaction-record level. The meaning of `Total_spent` and its relationship to discounts should be interpreted according to the dataset's definitions.
-
 ---
 
 ## 🛠️ Tools and Technologies
