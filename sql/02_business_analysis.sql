@@ -1,18 +1,18 @@
 
 -- Total revenue
-SELECT SUM(Total_spent)
-FROM   cleaned_retail_stores_sales;
+SELECT SUM(Total_spent) as total_revenue
+FROM  cleaned_retail_stores_sales;
 
 -- Total number of transactions
-SELECT COUNT(Transaction_ID)
+SELECT COUNT(Transaction_ID) as total_transactions
 FROM   cleaned_retail_stores_sales;
 
 --Total quantity sold
-SELECT SUM(Quantity)
+SELECT SUM(Quantity) as total_quantity
 FROM   cleaned_retail_stores_sales;
 
 --Average transaction value
-SELECT AVG(Total_spent)
+SELECT AVG(Total_spent) as avg_revenue
 FROM   cleaned_retail_stores_sales
 WHERE  Total_spent IS NOT NULL;
 
@@ -22,9 +22,6 @@ SELECT   TOP 1 Category,
 FROM     cleaned_retail_stores_sales
 GROUP BY Category
 ORDER BY total_revenue DESC;
-
-SELECT *
-FROM   cleaned_retail_stores_sales;
 
 --Top 10 individual items generating the most revenue
 SELECT   TOP 10 Item,
@@ -40,7 +37,7 @@ FROM     cleaned_retail_stores_sales
 GROUP BY Location
 ORDER BY total_revenue DESC;
 
---Most frequently payment method by customer
+--Most frequently used payment method by customer
 SELECT   Payment_method,
          COUNT(*) AS total_count
 FROM     cleaned_retail_stores_sales
@@ -64,15 +61,20 @@ ORDER BY total_spent DESC;
 --How does revenue change month by month, and which month generated the highest revenue? (Monthly revenue trend)
 
 WITH     monthly_revenue
-AS       (SELECT   month(Transaction_date) AS revenue_month,
-                   year(Transaction_date) AS revenue_year,
-                   sum(Total_spent) AS total_revenue
+AS       (SELECT   YEAR(Transaction_date) AS revenue_year,
+                   MONTH(Transaction_date) AS revenue_month,
+                   SUM(Total_spent) AS total_revenue
           FROM     cleaned_retail_stores_sales
-          GROUP BY month(Transaction_date), year(Transaction_date))
-SELECT   *,
-         lag(total_revenue, 1) OVER (ORDER BY revenue_year, revenue_month) AS prev_month_revenue,
-         round(100.0 * (total_revenue - lag(total_revenue, 1) OVER (ORDER BY revenue_year, revenue_month)) / NULLIF (lag(total_revenue, 1) OVER (ORDER BY revenue_year, revenue_month), 0), 2) AS mom_percent
-FROM     monthly_revenue
+          GROUP BY YEAR(Transaction_date), MONTH(Transaction_date)),monthly_with_prev
+AS       (SELECT *,
+                 LAG(total_revenue, 1) OVER (ORDER BY revenue_year, revenue_month) AS prev_month_revenue
+          FROM   monthly_revenue)
+SELECT   revenue_year,
+         revenue_month,
+         total_revenue,
+         prev_month_revenue,
+         ROUND(100.0 * (total_revenue - prev_month_revenue) / NULLIF (prev_month_revenue, 0), 2) AS mom_percent
+FROM     monthly_with_prev
 ORDER BY revenue_year, revenue_month;
 
 SELECT   TOP 1 month(Transaction_date) AS revenue_month,
